@@ -1,21 +1,31 @@
 {% extends 'base2.html' %}
 {% block content %}
 
-<h1>IMAGES Details</h1>
+<p class="menu-label">
+    Image Details
+</p>
 
 
-<div class="card">
-
-    <div class="card-content">
-        <span class="card-title">{{ image.name }}</span>
-        <p>URL: {{ image.url }}</p>
+<div class="container">
+    <div class="columns">
+        <div class="column is-vcentered">
+            <div class="column">
+                <a href="{% url 'gallery'%}" class="button is-dark is-small my-3">Back</a>
+                <div class="full-size-image">
+                    <figure class="image is-4">
+                        <div class="card">
+                            <div class="card-content">
+                                
+        <span class="card-action">{{ image.name }}</span>
         <p>Description: {{ image.description }}</p>
     </div>
+</figure>
     <div class="card-action">
-        <a href="{% url 'images_update' image.id %}">Edit</a>
-        <a href="{% url 'images_delete' image.id %}">Delete</a> 
-   </div>
-</div> 
+        <a href="{% url 'images_update' image.id %}" class="button is-dark is-small my-3">Edit</a>
+        <a href="{% url 'images_delete' image.id %}" class="button is-dark is-small my-3">Delete</a> 
+    </div>
+</div>
+
 
 
 {% for photo in image.photo_set.all %}

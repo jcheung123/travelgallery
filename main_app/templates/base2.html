@@ -8,40 +8,80 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Travel Gallery</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-
+    <!-- <script src="/main_app/static/scripts/bulmascript.js" async></script> -->
 </head>
 
-<body>
+<body class="m-5">
     <header class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper">
-                <ul>
-                    <li><a href="/" class="left brand-logo">&nbsp;&nbsp;travelgallery</a></li>
-                </ul>
-                <ul class="right">
-                    <li><a href="{% url 'about' %}">About</a></li>
-                    <li><a href="{% url 'index' %}">View All Image</a></li>
-                    <li><a href="{% url 'images_create' %}">Add an Image</a></li>
-                    {% if user.is_authenticated %}
-                        <li><a href="{% url 'logout' %}">Logout</a> </li>
-                    {% else %}
-                        <li><a href="{% provider_login_url 'google' %}">Login</a></li>
-                    {% endif %}
-                </ul>
+
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-menu">
+                <!-- navbar items -->
+                <div class="navbar-brand">
+                    <!-- brand -->
+                    <div class="navbar-brand">
+                        <a class="navbar-item" href="/">
+                            &nbsp;&nbsp;travelgallery
+                            <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
+                        </a>
+
+                        <!-- hamburger -->
+                        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                            data-target="navbarBasicExample">
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
             </div>
+            <!-- left side of top navigation -->
+            <div class="navbar-start">
+                <a class="navbar-item">Home</a>
+                <a href="{% url 'about' %}" class="navbar-item">About</a>
+                <a href="{% url 'gallery' %}" class="navbar-item">View All Images</a>
+                <a href="{% url 'images_create' %}" class="navbar-item">Add an Image</a>
+            </div>
+
+            <!-- right side of top navigation -->
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'logout' %}" class="button is-primary">Sign out</a> 
+                            {% else %}
+                                <a href="{% provider_login_url 'google' %}" class="button is-light">Log in</a>
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+
         </nav>
+
     </header>
-    <main class="container">
+    <div class="columns">
+        <div class="column is-one-fifth">
+
+        </div>
+    </div>
+    <main class="container-materialize">
         {% block content %}
         {% endblock %}
     </main>
-    <footer class="page-footer">
-        <div class="right">All Rights Reserved, &copy; 2022 Travel gallery &nbsp;</div>
+
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <div class="right">All Rights Reserved, &copy; 2022 travelgallery &nbsp;</div>
+            </p>
+        </div>
     </footer>
+
 </body>
 
 </html>

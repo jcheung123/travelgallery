@@ -1,20 +1,8 @@
 {% extends 'base2.html' %}
 {% block content %}
 
-<h1>IMAGES Details Index Page</h1>
+<h1> Index page at index.html</h1>
+<p>This page will be the first page in the app</p>
 
-{% for image in images %}
-<div class="card">
-    <a href="{% url 'details' image.id %}">
-    <div class="card-content">
-        <span class="card-title">{{ image.name }}</span>
-        <p>URL: {{ image.url }}</p>
-        <p>Description: {{ image.description }}</p>
-    </div>
-    </a>
-</div>
-{% endfor %}
 
 {% endblock %}
-
-

@@ -1,10 +1,12 @@
 from .models import ImageInfo, Photo
 import boto3
 import uuid
+from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+
 
 
 
@@ -13,36 +15,45 @@ BUCKET = 'travelgallerybucket'
 
 
 def home(request):
-    return HttpResponse('This is the gallery')
+    return HttpResponse('This is the homepage')
 
 
 def about(request):
     return render(request, 'gallery/about.html')
 
 
+def index(request):
+    return HttpResponse('This is the index')
+
+
+# Show all photos
 def gallery(request):
-    return HttpResponse('This is the gallery')
-
-
-def gallery_index(request):
     images = ImageInfo.objects.all()
-    return render(request, 'gallery/index.html', {'images': images})
+    return render(request, 'gallery/images.html', {'images': images})
 
 
+# Show one 
+def details(request, images_id):
+    image = ImageInfo.objects.get(id=images_id)
+    return render(request, 'gallery/details.html', {'image': image})
+
+
+
+# Create
 class ImageInfoCreate(LoginRequiredMixin, CreateView):
     model = ImageInfo
-    fields = ['name', 'url', 'description']
-    success_url = '/'
+    fields = ['name', 'location','category', 'url', 'description']
+    success_url = '/travel/images/'
 
     def form_valid(self, form):
         form.instance.user = self.request.user 
         return super().form_valid(form)
 
-
+# Update 
 class ImageInfoUpdate(LoginRequiredMixin, UpdateView):
     model = ImageInfo
     fields = ['name', 'url', 'description']
-    success_url = '/travel/gallery/'
+    success_url = '/travel/images/'
 
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
@@ -50,23 +61,19 @@ class ImageInfoUpdate(LoginRequiredMixin, UpdateView):
             raise ValueError("You are not allowed to edit this Post")
         return super(ImageInfoUpdate, self).dispatch(request, *args, **kwargs)
 
+# Delete
 class ImageInfoDelete(LoginRequiredMixin, DeleteView):
     model = ImageInfo
-    success_url = '/travel/gallery/'
+    success_url = '/travel/images/'
 
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
         if obj.user != self.request.user:
             raise ValueError("You are not allowed to delete this Post")
         return super(ImageInfoDelete, self).dispatch(request, *args, **kwargs)
-     
-        
-def details(request, images_id):
-    image = ImageInfo.objects.get(id=images_id)
-    return render(request, 'gallery/details.html', {
-        'image': image})
 
 
+# add
 @login_required
 def add_photo(request, images_id):
     # photo-file will be the "name" attribute on the <input type="file">
@@ -91,3 +98,5 @@ def add_photo(request, images_id):
         except:
             print('An error occurred uploading file to S3')
     return redirect('details', images_id=images_id)
+
+  
