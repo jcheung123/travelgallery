@@ -3,16 +3,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Gallery</title>
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <!-- <script src="/main_app/static/scripts/bulmascript.js" async></script> -->
 </head>
 
 <body class="m-5">
@@ -26,22 +23,12 @@
                     <div class="navbar-brand">
                         <a class="navbar-item" href="/">
                             &nbsp;&nbsp;travelgallery
-                            <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
-                        </a>
-
-                        <!-- hamburger -->
-                        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-                            data-target="navbarBasicExample">
-                            <span aria-hidden="true"></span>
-                            <span aria-hidden="true"></span>
-                            <span aria-hidden="true"></span>
                         </a>
                     </div>
                 </div>
             </div>
             <!-- left side of top navigation -->
             <div class="navbar-start">
-                <a class="navbar-item">Home</a>
                 <a href="{% url 'about' %}" class="navbar-item">About</a>
                 <a href="{% url 'gallery' %}" class="navbar-item">View All Images</a>
                 <a href="{% url 'images_create' %}" class="navbar-item">Add an Image</a>
@@ -59,7 +46,6 @@
                     </div>
                 </div>
             </div>
-
         </nav>
 
     </header>
@@ -72,7 +58,6 @@
         {% block content %}
         {% endblock %}
     </main>
-
 
     <footer class="footer">
         <div class="content has-text-centered">
